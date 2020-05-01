@@ -106,7 +106,7 @@ public class Mod {
 		}
 	}
 
-	//MODのnCr計算(k,n <= 10^7)
+	//MODのnCr計算(r,n <= 10^7)
 	public static long Com(int n, int r) {
 		if(n < r)
 			return 0;
@@ -129,7 +129,7 @@ public class Mod {
 		}
 	}
 
-	//MODのnCr計算(k <= 10^7 n <= 10^9)
+	//MODのnCr計算(r <= 10^7 n <= 10^9)
 	public static long Com_bign(int n, int r) {
 		if(n < r)
 			return 0;
