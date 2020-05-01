@@ -6,6 +6,12 @@ public class Mod {
 	public static final int MOD = 1000000007;
 	public static final int MAX = 510000;
 
+	public static long[] fac;
+	public static long[] finv;
+	public static long[] inv;
+
+	public static long[] com;
+
 	//負の数に対応したあまり
 	public static long mod(long a) {
 		long res = a % MOD;
@@ -81,12 +87,12 @@ public class Mod {
 		return u;
 	}
 
-	public static long[] fac = new long[MAX];
-	public static long[] finv = new long[MAX];
-	public static long[] inv = new long[MAX];
-
 	//MODのnCr計算の前処理(nCrを計算するとき必ず前に入れる)
 	public static void ComInit() {
+		fac = new long[MAX];
+		finv = new long[MAX];
+		inv = new long[MAX];
+
 		fac[0] = 1;
 		fac[1] = 1;
 		finv[0] = 1;
@@ -95,12 +101,12 @@ public class Mod {
 
 		for(int i=2; i<MAX; i++) {
 			fac[i] = fac[i - 1] * i % MOD;
-	        inv[i] = MOD - inv[MOD%i] * (MOD / i) % MOD;
+	        inv[i] = MOD - inv[MOD % i] * (MOD / i) % MOD;
 	        finv[i] = finv[i - 1] * inv[i] % MOD;
 		}
 	}
 
-	//MODのnCr計算
+	//MODのnCr計算(k,n <= 10^7)
 	public static long Com(int n, int r) {
 		if(n < r)
 			return 0;
@@ -109,6 +115,32 @@ public class Mod {
 			return 0;
 
 		return fac[n] * (finv[r] * finv[n - r] % MOD) % MOD;
+	}
+
+	//MODのnCr計算の前処理(nCrを計算するとき必ず前に入れる)(n <= 10^9の場合)
+	public static void ComInit_bign(int n, int r) {
+		com = new long[r+1];
+
+		com[0] = 1;
+		com[1] = n;
+
+		for(int i=2; i<=r; i++) {
+			com[i] = com[i-1] * div(n-i+1, i) % MOD;
+		}
+	}
+
+	//MODのnCr計算(k <= 10^7 n <= 10^9)
+	public static long Com_bign(int n, int r) {
+		if(n < r)
+			return 0;
+
+		if(n < 0 || r < 0)
+			return 0;
+
+		if(r > n / 2)
+			return com[n-r];
+		else
+			return com[r];
 	}
 
 	//modが自由なパターン
