@@ -73,7 +73,7 @@ public class GraphTools {
 			from.edges.add(new Edge(to, 1));
 		}
 
-		public void addEdge(Node from, Node to, int weight) {
+		public void addEdge(Node from, Node to, long weight) {
 			//エッジの重みが異なる場合
 			from.edges.add(new Edge(to, weight));
 		}
@@ -126,9 +126,9 @@ public class GraphTools {
 	//エッジを表すクラス
 	public static class Edge{
 		Node to;		//行き先
-		int weight;		//重み
+		long weight;		//重み
 
-		public Edge(Node to, int weight) {
+		public Edge(Node to, long weight) {
 			this.to = to;
 			this.weight = weight;
 		}
